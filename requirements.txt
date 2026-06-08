@@ -1,0 +1,35 @@
+# main package
+Django 
+djangorestframework 
+Pillow 
+python-decouple 
+
+djangorestframework-simplejwt
+
+django-cors-headers
+# thirty package
+django-filter 
+drf-yasg 
+djoser 
+black 
+flake8 
+django-extensions 
+
+# database
+psycopg[binary]
+
+#email
+django-mail-templated 
+
+gunicorn
+
+pytest
+pytest-django
+python-dotenv
+faker
+
+# cashe bg proccess
+celery
+Redis
+django-celery-beat
+# -i https://mirror-pypi.runflare.com/simple
