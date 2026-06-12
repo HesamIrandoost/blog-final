@@ -1,6 +1,6 @@
 from rest_framework import generics, permissions, response, status
-from .serializers import PostListDetailSerializer, PostCreateUpdateSerializer
-from Blog.models import Post
+from .serializers import PostListDetailSerializer, PostCreateUpdateSerializer, CategorySerializer
+from Blog.models import Post, Category
 
 class PostListView(generics.ListAPIView):
     serializer_class = PostListDetailSerializer
@@ -43,3 +43,10 @@ class AuthorListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         return serializer.save(author=self.request.user.profile)
     
+
+class CategoryView(generics.ListAPIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = CategorySerializer
+    
+    def get_queryset(self):
+        return Category.objects.all()

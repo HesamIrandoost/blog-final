@@ -1,4 +1,4 @@
-from Blog.models import Post
+from Blog.models import Post, Category
 from rest_framework import serializers
 
 
@@ -32,3 +32,14 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
         'status', 'created_at', 'updated_at'   
         ]
         read_only_fields=['status', 'created_at', 'updated_at']
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    posts = PostListDetailSerializer(many=True, read_only=True)
+    
+    class Meta:
+        model=Category
+        fields = [
+            'name', 'posts'
+        ]
+        # read_only_fields=

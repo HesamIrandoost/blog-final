@@ -32,4 +32,8 @@ urlpatterns = [
     path('author/posts/<slug:slug>/', views.AuthorRUDView.as_view(), name='author-posts-detail'),
     path('author/posts/<slug:slug>/edit/', views.AuthorRUDView.as_view(), name='author-posts-edit'),
     path('author/posts/<slug:slug>/delete/', views.AuthorRUDView.as_view(), name='author-posts-delete'),
+
+    # Category endpoints    
+    path('category/', views.CategoryView.as_view(), name='author-posts-delete'),
+
 ]

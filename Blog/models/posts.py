@@ -11,7 +11,7 @@ class Post(models.Model):
     title = models.CharField(max_length=250)
     cover = models.ImageField(upload_to=("upload/cover/"), blank=True, null=True)
     content = models.TextField()
-    category = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True , related_name='posts')
     status = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
