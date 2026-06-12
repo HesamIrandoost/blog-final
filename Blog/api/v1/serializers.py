@@ -26,4 +26,9 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=Post
-        
+        fields = [
+        'slug', 'title',
+        'cover', 'content', 'category',
+        'status', 'created_at', 'updated_at'   
+        ]
+        read_only_fields=['status', 'created_at', 'updated_at']
