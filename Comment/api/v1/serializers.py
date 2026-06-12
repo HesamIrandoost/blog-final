@@ -56,6 +56,10 @@ class AdminCommentUpdateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("This post is not available for commenting.")
         return value
     
-    def create(self, validated_data):
-        return Comment.objects.update(**validated_data)
 
+    def update(self, instance, validated_data):
+        instance.post = validated_data.get('post', instance.post)
+        instance.text = validated_data.get('text', instance.text)
+        instance.status = validated_data.get('status', instance.status)
+        instance.save()
+        return instance

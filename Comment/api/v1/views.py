@@ -38,13 +38,12 @@ class AdminCommentListView(generics.ListAPIView):
     serializer_class = CommentListSerializer
     queryset = Comment.objects.all().order_by('-created_at')
 
-class AdminCommentUpdateView(generics.RetrieveUpdateDestroyAPIView):
+class AdminCommentRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAdminUser]
     lookup_field = 'pk'
     def get_serializer_class(self):
         if self.request.method == "GET":
             return CommentListSerializer
         return AdminCommentUpdateSerializer
-    queryset = Comment.objects.all().order_by('-created_at')
-    def perform_update(self, serializer):
-        return super().perform_update(serializer)    
+    queryset = Comment.objects.all()
+    
