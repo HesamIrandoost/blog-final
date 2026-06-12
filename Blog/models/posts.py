@@ -1,7 +1,7 @@
 from django.db import models
 from Accounts.models import Profile
 import uuid
-from django.utils.text import slugify
+from slugify import slugify  
 
 # Create your models here.
 
@@ -19,8 +19,10 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            base_slug = slugify(self.title[:50])
-            self.slug = f"{base_slug}-{uuid.uuid4().hex[:8]}"
+            # base_slug = slugify(self.title[:50], allow_unicode=True)
+            # self.slug = f"{base_slug}-{uuid.uuid4().hex[:8]}"
+            self.slug = uuid.uuid4().hex
+
         super().save(*args, **kwargs)
 
 

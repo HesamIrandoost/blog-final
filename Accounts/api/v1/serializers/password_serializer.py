@@ -71,4 +71,3 @@ class SetNewPasswordSerializer(serializers.Serializer):
 
         attrs['token_obj'] = token_obj
         return attrs
-c
