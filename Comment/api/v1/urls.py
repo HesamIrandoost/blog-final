@@ -11,4 +11,4 @@ urlpatterns = [
     path('admin/post/<slug:slug>/', views.AdminCommentListView.as_view(), ),
     path('admin/post/<slug:slug>/<int:pk>/manage/', views.AdminCommentRetrieveUpdateDestroyView.as_view(), )
 
-]
+]   

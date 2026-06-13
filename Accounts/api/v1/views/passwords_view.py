@@ -1,9 +1,13 @@
 from ..serializers import ChangePasswordSerializer, SetNewPasswordSerializer, RequestResetPasswordSerializer
-from Accounts.models import PasswordResetToken
+from Accounts.models import PasswordResetToken, User
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status, permissions, generics
 from rest_framework.authtoken.models import Token
+import uuid
+from django.utils import timezone
+from datetime import timedelta
+
 
 class ChangePasswordView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -55,7 +59,8 @@ class RequestResetPasswordView(generics.GenericAPIView):
             f'/api/v1/accounts/reset-password/confirm/?token={token}'
         )
 
-        # sendـreset_password_email.delay(user.email, reset_link , user.full_name)
+        from Accounts.tasks import send_email_async
+        send_email_async.delay(user.email, reset_link , user.username)
                 
         return Response(
             {"detail": "If email exists, you will receive reset email"},

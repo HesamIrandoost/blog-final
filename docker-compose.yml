@@ -1,0 +1,88 @@
+#docker-compose.yml
+services:
+  redis:
+    container_name: redis
+    image: redis:7.4-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning
+    networks:
+      - todo_network  
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=core.settings
+      - PYTHONPATH=/app
+      - REDIS_URL=redis://redis:6379/0  
+    depends_on:
+      - redis
+    networks:
+      - todo_network
+  
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A core worker --loglevel=info
+    volumes:
+      - .:/app
+    environment:
+      - DJANGO_SETTINGS_MODULE=core.settings
+      - PYTHONPATH=/app
+      - REDIS_URL=redis://redis:6379/0  
+    depends_on:
+      - redis
+      # حذف: - database (چون نداریم)
+      # حذف: - backend (نیازی نیست)
+    networks:
+      - todo_network
+
+  beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A core beat --loglevel=info
+    volumes:
+      - .:/app
+    environment:
+      - DJANGO_SETTINGS_MODULE=core.settings
+      - PYTHONPATH=/app
+      - REDIS_URL=redis://redis:6379/0  
+    depends_on:
+      - redis
+      # حذف: - database
+      # حذف: - backendtodo-develop
+    restart: unless-stopped
+    networks:
+      - todo_network
+
+  smtp4dev:
+    image: rnwood/smtp4dev
+    restart: unless-stopped
+    ports:
+      - '5000:80'
+      - '25:25'
+      - '143:143'
+    volumes:
+      - smtp4dev-data:/smtp4dev
+    environment:
+      - ServerOptions__HostName=smtp4dev
+    networks:
+      - todo_network
+
+networks:
+  todo_network:
+    driver: bridge  
+    
+volumes:
+  smtp4dev-data:

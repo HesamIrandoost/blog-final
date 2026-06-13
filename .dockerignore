@@ -1,0 +1,26 @@
+# محیط مجازی
+venv/
+#env/
+#.venv/
+
+#
+# فایل‌های پایتون
+__pycache__/
+*.pyc
+*.pyo
+
+# فایل‌های محیطی
+.env
+.env.local
+
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+celerybeat-schedule
