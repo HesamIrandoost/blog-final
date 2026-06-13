@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
-
+from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
 
     "Blog.apps.BlogConfig",
     "Comment.apps.CommentConfig",
@@ -86,8 +87,18 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
     ],
-
     }
+
+
+SIMPLE_JWT = {
+    # عمر توکن دسترسی (کوتاه)
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    # عمر توکن رفرش (بلند)
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    # آیا هنگام رفرش، توکن رفرش جدید صادر شود؟
+    'ROTATE_REFRESH_TOKENS': True,
+    # آیا توکن رفرش قدیمی بعد از رفرش غیرفعال شود؟
+    'BLACKLIST_AFTER_ROTATION': True,}
 
 
 ROOT_URLCONF = "core.urls"
