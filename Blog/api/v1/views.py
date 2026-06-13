@@ -1,11 +1,23 @@
-from rest_framework import generics, permissions, response, status
+from rest_framework import generics, permissions, response, status,filters
 from .serializers import PostListDetailSerializer, PostCreateUpdateSerializer, CategorySerializer
 from Blog.models import Post, Category
+from django.shortcuts import get_object_or_404
 
 class PostListView(generics.ListAPIView):
     serializer_class = PostListDetailSerializer
     permission_classes = [permissions.AllowAny]
-    queryset = Post.objects.filter(status=True)  
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title' ,'content' ,'category__name']      
+    
+    def get_queryset(self):
+        queryset = Post.objects.filter(status=True)  
+        
+        category_slug = self.request.query_params.get('category')
+        
+        if category_slug:
+            category = get_object_or_404(Category, slug=category_slug)
+            queryset = queryset.filter(category=category)
+        return queryset
 
     
 class PostDetailView(generics.RetrieveAPIView):

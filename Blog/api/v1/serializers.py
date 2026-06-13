@@ -5,6 +5,7 @@ from rest_framework import serializers
 class PostListDetailSerializer(serializers.ModelSerializer):
     author_name = serializers.SerializerMethodField()    
     author_username = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
@@ -20,6 +21,9 @@ class PostListDetailSerializer(serializers.ModelSerializer):
 
     def get_author_username(self, obj):
         return obj.author.user.username
+
+    def get_category(self, obj):
+        return obj.category.slug
     
 
 class PostCreateUpdateSerializer(serializers.ModelSerializer):
