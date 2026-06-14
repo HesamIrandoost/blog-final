@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     "Comment.apps.CommentConfig",
     "Accounts.apps.AccountsConfig",
 
-    "drf_yasg",
+    "drf_spectacular",
     "django_filters",
     "django_extensions",
     "djoser",
@@ -87,8 +87,15 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
     ],
-    
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     }
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Blog API',
+    'DESCRIPTION': 'API documentation for my blog project',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
 
 
 SIMPLE_JWT = {
