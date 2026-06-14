@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +26,7 @@ SECRET_KEY = "django-insecure-pdhdki$dll=_@n!s4=juky@6r2_-_cwp9r+%)%j9aj+&ak634n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 AUTH_USER_MODEL = "Accounts.User"
@@ -39,23 +40,19 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "rest_framework",
     "rest_framework.authtoken",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
-
     "Blog.apps.BlogConfig",
     "Comment.apps.CommentConfig",
     "Accounts.apps.AccountsConfig",
-
     "drf_spectacular",
     "django_filters",
     "django_extensions",
     "djoser",
-    'mail_templated',
-    'corsheaders',  
-
+    "mail_templated",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -72,41 +69,42 @@ MIDDLEWARE = [
 REST_FRAMEWORK = {
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     # 'PAGE_SIZE': 15,
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',    
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
     ],
-    'DEFAULT_RENDERER_CLASSES': [
-        'rest_framework.renderers.JSONRenderer',  
-        'rest_framework.renderers.BrowsableAPIRenderer',
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
     ],
-    'DEFAULT_PARSER_CLASSES': [
-        'rest_framework.parsers.JSONParser',
+    "DEFAULT_PARSER_CLASSES": [
+        "rest_framework.parsers.JSONParser",
     ],
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    }
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Blog API',
-    'DESCRIPTION': 'API documentation for my blog project',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
+    "TITLE": "Blog API",
+    "DESCRIPTION": "API documentation for my blog project",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
 }
 
 
 SIMPLE_JWT = {
     # عمر توکن دسترسی (کوتاه)
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
     # عمر توکن رفرش (بلند)
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
     # آیا هنگام رفرش، توکن رفرش جدید صادر شود؟
-    'ROTATE_REFRESH_TOKENS': True,
+    "ROTATE_REFRESH_TOKENS": True,
     # آیا توکن رفرش قدیمی بعد از رفرش غیرفعال شود؟
-    'BLACKLIST_AFTER_ROTATION': True,}
+    "BLACKLIST_AFTER_ROTATION": True,
+}
 
 
 ROOT_URLCONF = "core.urls"
@@ -187,23 +185,21 @@ STATICFILES_DIRS = [
 
 
 import os
-# تنظیمات Celery - حتماً این خطوط را اضافه کنید  
-CELERY_BROKER_URL = os.environ.get('REDIS_URL', 'redis://redis:6379/0')
-CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL', 'redis://redis:6379/0')
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
+
+# تنظیمات Celery - حتماً این خطوط را اضافه کنید
+CELERY_BROKER_URL = os.environ.get("REDIS_URL", "redis://redis:6379/0")
+CELERY_RESULT_BACKEND = os.environ.get("REDIS_URL", "redis://redis:6379/0")
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = TIME_ZONE
 
 
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS = False
-EMAIL_HOST = 'smtp4dev'
+EMAIL_HOST = "smtp4dev"
 # EMAIL_HOST = '127.0.0.1'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
 EMAIL_PORT = 25
-DEFAULT_FROM_EMAIL = 'admin@admin.com'
-
-
+DEFAULT_FROM_EMAIL = "admin@admin.com"

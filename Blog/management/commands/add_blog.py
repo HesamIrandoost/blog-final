@@ -8,7 +8,7 @@ from core.settings import MEDIA_ROOT
 
 
 class Command(BaseCommand):
-    help = 'create user and its profils'
+    help = "create user and its profils"
     all_prof = Profile.objects.all()
     all_cate = Category.objects.all()
     titles = [
@@ -46,8 +46,7 @@ class Command(BaseCommand):
 
     def __init__(self, *args, **kwargs):
         super(Command, self).__init__(*args, **kwargs)
-        self.fake = Faker('fa_IR')
-
+        self.fake = Faker("fa_IR")
 
     def handle(self, *args, **options):
         for i in self.all_prof:
@@ -56,5 +55,5 @@ class Command(BaseCommand):
                     author=i,
                     title=self.fake.sentence(nb_words=(random.randint(5, 12))),
                     content=self.fake.paragraph(nb_sentences=random.randint(5, 12)),
-                    category=random.choice(self.all_cate)
+                    category=random.choice(self.all_cate),
                 )

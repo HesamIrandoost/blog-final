@@ -20,22 +20,24 @@ from django.urls import path, include
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
-    SpectacularRedocView
+    SpectacularRedocView,
 )
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-
-    path("api/v1/accounts/", include('Accounts.api.v1.urls')),
-    path("api/v1/blog/", include('Blog.api.v1.urls')),
-    path("api/v1/comment/", include('Comment.api.v1.urls')),
-
+    path("api/v1/accounts/", include("Accounts.api.v1.urls")),
+    path("api/v1/blog/", include("Blog.api.v1.urls")),
+    path("api/v1/comment/", include("Comment.api.v1.urls")),
     # JSON Schema
-    path('api/v1/schema/', SpectacularAPIView.as_view(), name='schema'),    
+    path("api/v1/schema/", SpectacularAPIView.as_view(), name="schema"),
     # Swagger UI (تعاملی)
-    path('api/v1/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path(
+        "api/v1/docs/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
     # ReDoc (مستندات زیبا)
-    path('api/v1/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-
+    path(
+        "api/v1/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"
+    ),
 ]
-

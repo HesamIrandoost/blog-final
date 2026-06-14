@@ -1,3 +1,7 @@
 from .signs_serializer import LoginSerializer, RegisterSerializer
 from .profiles_serializer import ProfileSerializer
-from .password_serializer import ChangePasswordSerializer, SetNewPasswordSerializer, RequestResetPasswordSerializer
+from .password_serializer import (
+    ChangePasswordSerializer,
+    SetNewPasswordSerializer,
+    RequestResetPasswordSerializer,
+)

@@ -1,9 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import (
-    BaseUserManager, AbstractBaseUser, PermissionsMixin
+    BaseUserManager,
+    AbstractBaseUser,
+    PermissionsMixin,
 )
 from django.utils import timezone
-
 
 # Create your models here.
 
@@ -31,10 +32,9 @@ class UserManager(BaseUserManager):
             raise ValueError("Superuser must have is_superuser=True.")
 
         return self.create_user(email, password, **extra_fields)
-    
 
 
-class User(AbstractBaseUser , PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=254, unique=True)
     username = models.CharField(max_length=254, unique=True)
     is_active = models.BooleanField(default=True)
